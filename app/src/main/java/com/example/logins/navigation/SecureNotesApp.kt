@@ -1,6 +1,7 @@
 package com.example.logins.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -9,6 +10,7 @@ import com.example.logins.ui.menu.MenuScreen
 import com.example.logins.ui.passwords.NewPasswordScreen
 import com.example.logins.ui.passwords.PasswordDetailScreen
 import com.example.logins.ui.passwords.PasswordListScreen
+import com.example.logins.ui.qr.QrScannerScreen
 
 @Composable
 fun SecureNotesApp() {
@@ -32,6 +34,13 @@ fun SecureNotesApp() {
             val id = backStackEntry.arguments?.getString("id")!!
             PasswordDetailScreen(navController, id)
         }
+        composable("scan_qr") {
+            QrScannerScreen(navController)
+        }
+
+
     }
 
 }
+
+

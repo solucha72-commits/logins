@@ -61,7 +61,15 @@ fun MenuScreen(navController: NavController) {
                         navController.navigate("list_passwords")
                     }
                 ) {
-                    Text("📋 Consultar contraseñas")
+                    Text(" Consultar contraseñas")
+                }
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = {
+                        navController.navigate("scan_qr")
+                    }
+                ) {
+                    Text(" Lector de código QR")
                 }
             }
         }

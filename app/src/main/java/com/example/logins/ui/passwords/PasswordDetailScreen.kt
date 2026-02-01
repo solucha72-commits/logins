@@ -24,14 +24,14 @@ fun PasswordDetailScreen(
     var family by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
-    // 🔐 AQUÍ SE DESENCRIPTA (repositorio)
+
     LaunchedEffect(id) {
         val result = repository.getPasswordById(id)
         entry = result
 
         result?.let {
             family = it.family
-            password = it.password   // 👈 ESTE YA ES EL PASSWORD REAL
+            password = it.password
         }
     }
 
@@ -67,7 +67,7 @@ fun PasswordDetailScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                // 🔓 SE MUESTRA EN CLARO (NO ENCRIPTADO)
+
                 TextField(
                     value = password,
                     onValueChange = { password = it },

@@ -1,17 +1,18 @@
 package com.example.logins
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import com.example.logins.data.workers.scheduleDailyBackup
 import com.example.logins.navigation.SecureNotesApp
 import com.example.logins.ui.auth.AuthState
 import java.util.concurrent.Executor
-import androidx.activity.compose.setContent
-import com.example.logins.navigation.SecureNotesApp
+
 
 class MainActivity : FragmentActivity() {
 
@@ -21,6 +22,11 @@ class MainActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Programamos el backup nada más arrancar.
+        // Como usamos "policy.KEEP", no importa si esto se ejecuta muchas veces,
+        // solo se registrará una vez.
+        scheduleDailyBackup(this)
 
         executor = ContextCompat.getMainExecutor(this)
 
