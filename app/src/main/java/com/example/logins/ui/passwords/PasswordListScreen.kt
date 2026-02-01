@@ -13,6 +13,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.logins.data.repository.PasswordEntry
 import com.example.logins.data.repository.SecureNotesRepository
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideInVertically
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -21,10 +24,12 @@ fun PasswordListScreen(navController: NavController) {
     val context = LocalContext.current
     val repository = remember { SecureNotesRepository(context) }
 
+    var visible by remember { mutableStateOf(false) }
     var passwords by remember { mutableStateOf<List<PasswordEntry>>(emptyList()) }
 
     LaunchedEffect(Unit) {
         passwords = repository.getPasswords()
+        visible = true // Activamos la animación cuando cargan los datos
     }
 
     Scaffold(
@@ -70,23 +75,28 @@ fun PasswordListScreen(navController: NavController) {
                 Spacer(modifier = Modifier.height(8.dp))
 
                 // Listado
-                LazyColumn(
-                    modifier = Modifier.weight(1f)
+                AnimatedVisibility(
+                    visible = visible,
+                    enter = fadeIn() + slideInVertically(initialOffsetY = { 50 }) // Aparece desde abajo
                 ) {
-                    items(passwords) { entry ->
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clickable {
-                                    navController.navigate("password_detail/${entry.id}")
-                                }
-                                .padding(vertical = 8.dp),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(entry.family)
-                            Text("******")
+                    LazyColumn(
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        items(passwords) { entry ->
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clickable {
+                                        navController.navigate("password_detail/${entry.id}")
+                                    }
+                                    .padding(vertical = 8.dp),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Text(entry.family)
+                                Text("******")
+                            }
+                            Divider()
                         }
-                        Divider()
                     }
                 }
 
