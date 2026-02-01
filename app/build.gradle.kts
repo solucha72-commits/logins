@@ -40,6 +40,8 @@ android {
 }
 
 dependencies {
+
+    implementation(libs.androidx.material.icons.extended)
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -51,6 +53,7 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.ui)
+    implementation(libs.androidx.compose.animation.core.lint)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -61,7 +64,7 @@ dependencies {
     // Biometría (contraseña biométrica)
     implementation("androidx.biometric:biometric:1.1.0")
 
-// Navegación en Compose
+    // Navegación en Compose
     implementation("androidx.navigation:navigation-compose:2.7.7")
 
     // CameraX
@@ -69,7 +72,16 @@ dependencies {
     implementation("androidx.camera:camera-lifecycle:1.3.2")
     implementation("androidx.camera:camera-view:1.3.2")
 
-// ML Kit - QR
+    // ML Kit - QR
     implementation("com.google.mlkit:barcode-scanning:17.2.0")
+
+    // Para Opción C (Login moderno / Passkeys)
+    implementation("androidx.credentials:credentials:1.3.0")
+    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
+    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
+
+    // (Opcional) Si vas a usar Google como proveedor de Passkeys
+    implementation("com.google.firebase:firebase-auth")
+    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
 
 }
