@@ -29,7 +29,6 @@ fun MenuScreen(navController: NavController) {
             }
         }
     ) { padding ->
-
         Box(
             modifier = Modifier
                 .fillMaxSize()
